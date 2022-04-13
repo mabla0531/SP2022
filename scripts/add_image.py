@@ -7,7 +7,7 @@ import simplejson as json
 import os
 
 def get_client():
-    client = boto3.client("rekognition", aws_access_key_id="AKIAZ3FOPVTAMAOXUQG5", aws_secret_access_key="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", region_name="us-east-2")  
+    client = boto3.client("rekognition", aws_access_key_id="AKIAZ3FOPVTAI3NT3CMK", aws_secret_access_key="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", region_name="us-east-2")  
     return client
 
 def get_args():

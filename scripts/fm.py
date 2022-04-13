@@ -6,6 +6,8 @@ from time import gmtime, strftime
 import numpy as np
 from picamera import PiCamera
 import cv2
+from database_interface import check_attendance
+from datetime import datetime
 
 camera = PiCamera()
 camera.resolution = (320, 240)
@@ -61,9 +63,11 @@ def main():
         print ('[+] Face(s) detected with %r confidence...' % (round(resp['FaceDetails'][0]['Confidence'], 2)))
         print ('[+] Checking for a face match...')
         resu, res = check_matches(client, args.collection)
+        currentTime = datetime.now().strftime("%H:%M").split(":")
 
         if (resu):
             print ('[+] Identity matched [%s] with %r similarity and %r confidence...' % (res['FaceMatches'][0]['Face']['ExternalImageId'], round(res['FaceMatches'][0]['Similarity'], 1), round(res['FaceMatches'][0]['Face']['Confidence'], 2)))
+            check_attendance(res['FaceMatches'][0]['Face']['ExternalImageId'], currentTime)
         else:
             print ('[-] No face matches detected...' )
 
